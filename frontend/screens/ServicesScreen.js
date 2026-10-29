@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   View, Text, FlatList, TouchableOpacity, TextInput,
-  StyleSheet, ActivityIndicator, ScrollView,
+  StyleSheet, ActivityIndicator, ScrollView, Image,
 } from 'react-native';
 import { api } from '../api/client';
 import { showAlert } from '../api/alert';
+
+const LOGO = require('../assets/argao-logo.png');
 
 export default function ServicesScreen({ navigation }) {
   const [services, setServices] = useState([]);
@@ -38,15 +40,22 @@ export default function ServicesScreen({ navigation }) {
   }, [load]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={{ padding: 12 }}>
+    <View style={{ flex: 1, backgroundColor: '#f5f9ff' }}>
+      
+      {/* Fixed Header with Logo & Search */}
+      <View style={styles.headerArea}>
+        <View style={styles.logoRow}>
+          <Image source={LOGO} style={styles.logo} resizeMode="contain" />
+          <Text style={styles.headerTitle}>Municipal Services</Text>
+        </View>
+
         <TextInput
           style={styles.search}
           placeholder="🔍 Search services..."
           value={q}
           onChangeText={setQ}
         />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
           <TouchableOpacity onPress={() => setCat(null)} style={[styles.chip, !cat && styles.chipActive]}>
             <Text style={[styles.chipT, !cat && { color: '#fff' }]}>All</Text>
           </TouchableOpacity>
@@ -88,9 +97,36 @@ export default function ServicesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  search: { borderWidth: 1, borderColor: '#ccc', padding: 10, borderRadius: 10 },
+  headerArea: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e6eef9',
+  },
+  logoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+    gap: 10,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#0066cc',
+  },
+  search: { 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    padding: 10, 
+    borderRadius: 10,
+    backgroundColor: '#f9fbff',
+  },
   chip: { paddingHorizontal: 14, paddingVertical: 6, borderRadius: 20, borderWidth: 1,
-    borderColor: '#0066cc', marginRight: 8 },
+    borderColor: '#0066cc', marginRight: 8, backgroundColor: '#fff' },
   chipActive: { backgroundColor: '#0066cc' },
   chipT: { color: '#0066cc', fontWeight: '600', fontSize: 12 },
   card: { backgroundColor: '#fff', borderRadius: 12, padding: 14, marginBottom: 12,

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Modal,
+  ActivityIndicator, Modal, Image,
 } from 'react-native';
 import { api, saveToken } from '../api/client';
 import { showAlert } from '../api/alert';
+
+// Import the logo
+const LOGO = require('../assets/argao-logo.png');
 
 export default function LoginScreen({ navigation, setUser }) {
   const [email, setEmail] = useState('');
@@ -42,7 +45,12 @@ export default function LoginScreen({ navigation, setUser }) {
 
   return (
     <View style={styles.c}>
-      <Text style={styles.h}>🇵🇭 Argao Citizen App</Text>
+      {/* Logo Section */}
+      <View style={styles.logoContainer}>
+        <Image source={LOGO} style={styles.logo} resizeMode="contain" />
+      </View>
+
+      <Text style={styles.h}>Argao Citizen Registry App</Text>
       <Text style={styles.sub}>Municipality of Argao, Cebu</Text>
 
       <TextInput
@@ -89,12 +97,23 @@ export default function LoginScreen({ navigation, setUser }) {
 
 const styles = StyleSheet.create({
   c: { flex: 1, padding: 24, justifyContent: 'center', backgroundColor: '#fff' },
+  
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+  },
+
   h: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', color: '#0066cc' },
   sub: { textAlign: 'center', color: '#666', marginBottom: 30 },
   i: { borderWidth: 1, borderColor: '#ccc', padding: 12, borderRadius: 8, marginBottom: 12 },
   b: { backgroundColor: '#0066cc', padding: 14, borderRadius: 8, alignItems: 'center' },
   bt: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
   l: { textAlign: 'center', color: '#0066cc', marginTop: 16 },
+  
   overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'center', alignItems: 'center' },
   overlayBox: { backgroundColor: '#fff', padding: 28, borderRadius: 16, alignItems: 'center', minWidth: 240 },
   overlayText: { marginTop: 12, fontSize: 16, fontWeight: '600', color: '#0066cc' },

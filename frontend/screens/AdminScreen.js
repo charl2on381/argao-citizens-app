@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   View, Text, FlatList, TouchableOpacity, StyleSheet,
-  ActivityIndicator, TextInput,
+  ActivityIndicator, TextInput, Image,
 } from 'react-native';
 import { api } from '../api/client';
 import { showAlert } from '../api/alert';
+
+const LOGO = require('../assets/argao-logo.png');
 
 export default function AdminScreen({ user, logout }) {
   const [tab, setTab] = useState('users'); // 'users' | 'apps'
@@ -106,11 +108,14 @@ export default function AdminScreen({ user, logout }) {
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       {/* Header */}
       <View style={styles.hdr}>
-        <View>
-          <Text style={styles.h}>Admin Panel</Text>
-          <Text style={styles.who}>Signed in as {user.first_name}</Text>
+        <View style={styles.hdrLeft}>
+          <Image source={LOGO} style={styles.logo} resizeMode="contain" />
+          <View>
+            <Text style={styles.h}>Admin Panel</Text>
+            <Text style={styles.who}>Signed in as {user.first_name}</Text>
+          </View>
         </View>
-        <TouchableOpacity onPress={logout}>
+        <TouchableOpacity onPress={logout} style={styles.logoutBtn}>
           <Text style={styles.lo}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -331,8 +336,23 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 8,
   },
-  h: { fontSize: 22, fontWeight: 'bold', color: '#0066cc' },
+  hdrLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  logo: {
+    width: 45,
+    height: 45,
+  },
+  h: { fontSize: 20, fontWeight: 'bold', color: '#0066cc' },
   who: { fontSize: 12, color: '#888' },
+  logoutBtn: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: '#ffeaea',
+    borderRadius: 6,
+  },
   lo: { color: '#cc3333', fontWeight: '600' },
 
   tabRow: { flexDirection: 'row', paddingHorizontal: 12, gap: 6, marginBottom: 8 },

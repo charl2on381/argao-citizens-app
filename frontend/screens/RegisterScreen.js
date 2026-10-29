@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, ScrollView,
-  StyleSheet, ActivityIndicator,
+  StyleSheet, ActivityIndicator, Image,
 } from 'react-native';
 import { api } from '../api/client';
 import { showAlert } from '../api/alert';
+
+const LOGO = require('../assets/argao-logo.png');
 
 const TYPES = [
   { key: 'citizen', label: 'Citizen', icon: '🏛️' },
@@ -71,8 +73,12 @@ export default function RegisterScreen({ navigation }) {
       contentContainerStyle={{ padding: 20, paddingBottom: 40 }}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={styles.heading}>Create your account</Text>
-      <Text style={styles.sub}>All registrations are reviewed by a municipal admin</Text>
+      {/* Logo Header */}
+      <View style={styles.header}>
+        <Image source={LOGO} style={styles.logo} resizeMode="contain" />
+        <Text style={styles.heading}>Create your account</Text>
+        <Text style={styles.sub}>All registrations are reviewed by a municipal admin</Text>
+      </View>
 
       {/* Type selector */}
       <Text style={styles.lbl}>I am a:</Text>
@@ -213,8 +219,29 @@ export default function RegisterScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   c: { flex: 1, backgroundColor: '#fff' },
-  heading: { fontSize: 22, fontWeight: 'bold', color: '#0066cc' },
-  sub: { color: '#666', marginBottom: 20 },
+  
+  header: {
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  logo: {
+    width: 80,
+    height: 80,
+    marginBottom: 10,
+  },
+  heading: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    color: '#0066cc',
+    textAlign: 'center',
+  },
+  sub: { 
+    color: '#666', 
+    marginTop: 4,
+    textAlign: 'center',
+  },
+  
   lbl: { fontWeight: '600', marginBottom: 8 },
 
   typeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 },
